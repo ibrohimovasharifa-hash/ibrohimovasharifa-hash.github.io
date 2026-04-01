@@ -521,7 +521,6 @@
       </div>
     </div>
   </div>
-</section>
 
   <!-- CASE STUDY 4 - GREENECO -->
   <div class="case-study fade-in">
@@ -594,10 +593,8 @@
     </div>
   </div>
 
-</section>
-
 <!-- ACADEMIC PROJECTS -->
-<section style="background:var(--cream); padding:5rem 4rem;">
+<div style="background:var(--cream); padding:5rem 4rem; border-top:1px solid var(--border);">
   <div class="section-label">Academic Work</div>
   <h2 class="section-title">Supporting projects from MSc studies</h2>
   <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:3rem;">
@@ -631,6 +628,8 @@
     </div>
 
   </div>
+</div>
+
 </section>
 
 <!-- BRANDS -->
@@ -794,4 +793,13 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
-      entry.target.querySelectorAll('.skill
+      entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => bar.classList.add('animate'));
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+document.querySelector('.hero-left').classList.add('visible');
+</script>
+</body>
+</html>
