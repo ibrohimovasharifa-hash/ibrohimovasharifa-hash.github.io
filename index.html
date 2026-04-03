@@ -40,9 +40,8 @@
   .stat-number { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 600; color: var(--terracotta); line-height: 1; margin-bottom: 0.3rem; }
   .stat-label { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); line-height: 1.4; }
   .hero-right { position: relative; overflow: hidden; background: var(--ink); }
-  .hero-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, #2A2A2A 0%, #1A1A1A 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; padding: 3rem; }
-  .hero-placeholder .initials { font-family: 'Cormorant Garamond', serif; font-size: 8rem; font-weight: 300; color: var(--terracotta); line-height: 1; margin-bottom: 1rem; }
-  .hero-image-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(196,97,74,0.3) 0%, transparent 60%); }
+  .hero-photo { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+  .hero-image-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(196,97,74,0.2) 0%, transparent 60%); }
   .hero-image-text { position: absolute; bottom: 3rem; left: 3rem; right: 3rem; color: white; }
   .hero-image-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 300; font-style: italic; margin-bottom: 0.3rem; }
   .hero-image-text p { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.7; }
@@ -104,6 +103,21 @@
   .stat-box-value { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--terracotta); line-height: 1; margin-bottom: 0.3rem; }
   .stat-box-label { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); line-height: 1.4; }
 
+  /* Campaign gallery */
+  .campaign-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; margin-top: 2.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border); }
+  .campaign-gallery figure { margin: 0; }
+  .campaign-gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+  .campaign-gallery figcaption { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); margin-top: 0.5rem; line-height: 1.4; }
+  .campaign-gallery-2col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-top: 2.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border); }
+  .campaign-gallery-2col figure { margin: 0; }
+  .campaign-gallery-2col img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+  .campaign-gallery-2col figcaption { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); margin-top: 0.5rem; line-height: 1.4; }
+
+  /* Video embed */
+  .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 0; }
+  .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+  .video-label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 0.8rem; }
+
   .brands { background: var(--ink); color: white; text-align: center; }
   .brands .section-label { justify-content: center; color: var(--terracotta-light); }
   .brands .section-label::before { background: var(--terracotta-light); }
@@ -141,7 +155,7 @@
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
     .hero { grid-template-columns: 1fr; }
-    .hero-right { display: none; }
+    .hero-right { height: 60vw; }
     section { padding: 5rem 1.5rem; }
     .about, .contact { grid-template-columns: 1fr; gap: 3rem; }
     .expertise-grid { grid-template-columns: 1fr 1fr; }
@@ -150,6 +164,8 @@
     .case-num { font-size: 3rem; }
     .brand-logos { gap: 2.5rem; }
     .stat-grid { grid-template-columns: 1fr 1fr; }
+    .campaign-gallery { grid-template-columns: repeat(2, 1fr); }
+    .campaign-gallery-2col { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
@@ -165,7 +181,7 @@
   </ul>
 </nav>
 
-<!-- HERO — removed Amsterdam -->
+<!-- HERO -->
 <section class="hero" style="padding: 0;">
   <div class="hero-left fade-in">
     <div class="hero-tag">Marketing Specialist</div>
@@ -192,12 +208,12 @@
   </div>
 
   <div class="hero-right">
-    <div class="hero-placeholder">
-      <div class="initials">SI</div>
-      <p style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; opacity:0.4;">
-        Add your photo here
-      </p>
-    </div>
+    <img
+      src="assets/img/profile.jpg"
+      alt="Sharifakhon Ibrohimova — Marketing Specialist"
+      class="hero-photo"
+      loading="eager"
+    >
     <div class="hero-image-overlay"></div>
     <div class="hero-image-text">
       <h3>MSc Digital Marketing</h3>
@@ -218,7 +234,7 @@
       What sets my work apart is the combination of <strong>ground-level operational experience</strong> with formal analytical training. I've planned and controlled budgets, coordinated with regional retail partners, managed product data workflows, and reported performance to senior management — all within structured corporate environments.
     </p>
     <p>
-      I bring a multilingual perspective (Uzbek, Russian, English) and a track record of executing in complex, fast-moving markets.
+      I bring a multilingual perspective (Uzbek, Russian, English) and a track record of executing in complex, fast-moving markets. When I'm not building campaigns, I'm usually baking — I like having control over a process, following it precisely, and ending up with something tangible. Same principle, different oven.
     </p>
   </div>
 
@@ -353,7 +369,6 @@
           <div class="chart-insight">Campaign participation grew 3× versus the prior year's comparable promotion, driven by the premium grand prize mechanic and phased rollout across channels.</div>
         </div>
 
-        <!-- Replaced timeline chart with execution summary stats -->
         <div class="chart-container">
           <div class="chart-title">Campaign Scale — Key Execution Facts</div>
           <div class="stat-grid" style="margin-top:0.5rem;">
@@ -372,11 +387,44 @@
           </div>
           <div class="chart-insight" style="margin-top:1rem;">Executed across open market and key account channels simultaneously, with bilingual creative in Uzbek and Russian.</div>
         </div>
+
+        <div class="chart-container">
+          <div class="video-label">Campaign video — vivo Uzbekistan official</div>
+          <div class="video-container">
+            <iframe
+              src="https://www.youtube.com/embed/L1f7bV41gk0"
+              title="vivo FIFA World Cup Qatar 2022 Campaign — Uzbekistan"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <!-- Campaign photo gallery -->
+    <div class="campaign-gallery fade-in">
+      <figure>
+        <img src="assets/img/event-stage.jpg" alt="Sharifakhon at vivo V25 FIFA World Cup launch event" loading="lazy">
+        <figcaption>V25 × FIFA launch event</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/fifa-phase1.jpg" alt="FIFA campaign Phase 1 — See you at the Final grand prize mechanic" loading="lazy">
+        <figcaption>Phase 1 — Grand prize mechanic</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/fifa-phase2.jpg" alt="FIFA campaign Phase 2 — V25 promotion creative" loading="lazy">
+        <figcaption>Phase 2 — V25 campaign creative</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/fifa-live.jpg" alt="Instagram Live winner announcement ticket creative" loading="lazy">
+        <figcaption>Instagram Live — winner announcement</figcaption>
+      </figure>
     </div>
   </div>
 
-  <!-- CASE STUDY 2 - VIVO BRAND — removed budget chart and brand recognition chart -->
+  <!-- CASE STUDY 2 - VIVO RETAIL -->
   <div class="case-study fade-in">
     <div class="case-header">
       <div class="case-num">02</div>
@@ -442,9 +490,21 @@
         </div>
       </div>
     </div>
+
+    <!-- Retail campaign materials -->
+    <div class="campaign-gallery-2col fade-in">
+      <figure>
+        <img src="assets/img/promo-winter.jpg" alt="V21 series winter prize promotion — tiered mechanic" loading="lazy">
+        <figcaption>Winter promotion — V21 series prize mechanic</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/promo-v25.jpg" alt="V25 smartwatch retail promotion" loading="lazy">
+        <figcaption>V25 retail activation — smartwatch gift</figcaption>
+      </figure>
+    </div>
   </div>
 
-  <!-- CASE STUDY 3 - AVERY DENNISON — reframed away from automation -->
+  <!-- CASE STUDY 3 - AVERY DENNISON -->
   <div class="case-study fade-in">
     <div class="case-header">
       <div class="case-num">03</div>
@@ -478,7 +538,7 @@
         <p>I maintained daily product data across QAD ERP and Quark Product Data System, ensuring 100% accuracy across specifications, pricing, and classification for active, sustainable, and phase-out product lines. I coordinated cross-functional approvals across compliance, product, and commercial teams before any external publication — managing the workflow from data update through internal sign-off to customer communication.</p>
 
         <h4>The Impact</h4>
-        <p>By building a structured workflow for product update communications and maintaining a Google Sheets dashboard to track customers affected by material changes, I improved consistency and reduced errors across the portfolio. This project required navigating a complex cross-functional environment and developed my ability to manage stakeholder expectations within a structured corporate setting.</p>
+        <p>Working at Avery Dennison taught me something I still apply: the same product can command completely different positioning and pricing across segments depending entirely on who is buying it and why. A label material sold into Wine & Spirits is a premium design asset. The same label in Core industrial is a functional input. Same product, different world. That understanding of B2B segmentation shapes how I approach any campaign brief now.</p>
       </div>
 
       <div style="display:flex; flex-direction:column; gap:1.5rem;">
@@ -593,131 +653,6 @@
     </div>
   </div>
 
-<!-- ACADEMIC PROJECTS -->
-<div style="background:var(--cream); padding:5rem 4rem; border-top:1px solid var(--border);">
-  <div class="section-label">Academic Work</div>
-  <h2 class="section-title">Supporting projects from MSc studies</h2>
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:3rem;">
-
-    <div class="credential-item fade-in" style="padding:2rem;">
-      <div class="credential-school">Social Media Audit · Wittenborg University</div>
-      <div class="credential-degree" style="font-size:1rem; margin-top:0.5rem;">Douglas Beauty Retail — Facebook Channel Analysis</div>
-      <div class="credential-detail" style="margin-top:0.8rem; line-height:1.8;">
-        Analysed Douglas's Facebook presence as part of a three-person social media audit covering Instagram, Facebook, and TikTok. My contribution covered page performance (153K followers), comment category analysis, advertising strategy assessment (50+ ads per month), and strategic recommendations for improving engagement and targeting efficiency.
-      </div>
-      <div class="tools-list" style="margin-top:1rem;">
-        <span class="tool-tag">Facebook Analytics</span>
-        <span class="tool-tag">Competitor Analysis</span>
-        <span class="tool-tag">Ad Strategy</span>
-        <span class="tool-tag">Audience Segmentation</span>
-      </div>
-    </div>
-
-    <div class="credential-item fade-in" style="padding:2rem;">
-      <div class="credential-school">Financial & Market Analysis · Wittenborg University</div>
-      <div class="credential-degree" style="font-size:1rem; margin-top:0.5rem;">Investment Decision: NVIDIA vs. Intel</div>
-      <div class="credential-detail" style="margin-top:0.8rem; line-height:1.8;">
-        Conducted a comparative analysis of NVIDIA and Intel as investment opportunities, covering financial health (revenue, cash flow, profit margins), market positioning, target segments, pricing strategy, and competitive dynamics. Concluded NVIDIA offered stronger growth potential based on AI market positioning and financial trajectory.
-      </div>
-      <div class="tools-list" style="margin-top:1rem;">
-        <span class="tool-tag">Financial Analysis</span>
-        <span class="tool-tag">Market Research</span>
-        <span class="tool-tag">Yahoo Finance</span>
-        <span class="tool-tag">Competitive Intelligence</span>
-      </div>
-    </div>
-
-  </div>
-</div>
-<!-- CASE STUDY 5 - AI CAMPAIGN BRIEF BUILDER -->
-<div class="case-study fade-in">
-  <div class="case-header">
-    <div class="case-num">05</div>
-    <div class="case-meta">
-      <div class="case-tag">Passion Project · April 2026 · AI Tool</div>
-      <h3 class="case-title">AI Campaign Brief Builder</h3>
-      <p class="case-subtitle">Built and deployed a live AI-powered web app with zero coding experience</p>
-    </div>
-    <div class="case-kpis">
-      <div class="kpi-item">
-        <div class="kpi-value">1</div>
-        <div class="kpi-label">Day to build & deploy</div>
-      </div>
-      <div class="kpi-item">
-        <div class="kpi-value">€0</div>
-        <div class="kpi-label">Monthly running cost</div>
-      </div>
-      <div class="kpi-item">
-        <div class="kpi-value">5</div>
-        <div class="kpi-label">Errors debugged solo</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="case-body">
-    <div class="case-narrative">
-      <h4>The Idea</h4>
-      <p>Writing campaign briefs takes marketers 2–4 hours — even though the structure is largely the same every time. I wanted to build a tool that generates a complete, professional campaign brief in seconds, based on a few guided inputs. The twist: I had zero coding experience going in.</p>
-
-      <h4>What I Built</h4>
-      <p>A 4-step guided web app that collects campaign objectives, audience details, channels, and budget — then calls the Claude API to generate a tailored brief instantly. Built using Claude for code generation, Netlify for serverless functions, and the Gemini API for the AI layer. Deployed live in one day.</p>
-
-      <h4>What It Proved</h4>
-      <p>This project was never just about the tool. It demonstrated that a marketer who understands how to frame a problem, structure a prompt, and debug a workflow can ship real software without writing a single line of code manually. That is a different kind of skill — and an increasingly valuable one.</p>
-    </div>
-
-    <div style="display:flex; flex-direction:column; gap:1.5rem;">
-      <div class="chart-container">
-        <div class="chart-title">Technology stack</div>
-        <div style="display:flex; flex-wrap:wrap; gap:0.6rem; margin-top:0.5rem;">
-          <span class="tool-tag" style="padding:0.5rem 1rem; font-size:0.78rem;">Claude API</span>
-          <span class="tool-tag" style="padding:0.5rem 1rem; font-size:0.78rem;">Netlify Functions</span>
-          <span class="tool-tag" style="padding:0.5rem 1rem; font-size:0.78rem;">Gemini 2.5 Flash</span>
-          <span class="tool-tag" style="padding:0.5rem 1rem; font-size:0.78rem;">HTML / CSS / JS</span>
-          <span class="tool-tag" style="padding:0.5rem 1rem; font-size:0.78rem;">GitHub</span>
-        </div>
-        <div style="margin-top:1.5rem; display:flex; flex-direction:column; gap:0.8rem;">
-          <div style="display:flex; align-items:center; gap:1rem;">
-            <div style="width:4px; height:4px; border-radius:50%; background:var(--terracotta); flex-shrink:0;"></div>
-            <span style="font-size:0.85rem; color:var(--ink-light);">Zero manual code — entirely AI-assisted development</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:1rem;">
-            <div style="width:4px; height:4px; border-radius:50%; background:var(--terracotta); flex-shrink:0;"></div>
-            <span style="font-size:0.85rem; color:var(--ink-light);">Serverless backend — API keys secured, €0 running cost</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:1rem;">
-            <div style="width:4px; height:4px; border-radius:50%; background:var(--terracotta); flex-shrink:0;"></div>
-            <span style="font-size:0.85rem; color:var(--ink-light);">5 errors debugged independently through documentation and iteration</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="chart-container" style="display:flex; flex-direction:column; gap:1rem;">
-        <div class="chart-title">Try it or read the full case study</div>
-        <a href="https://silly-rugelach-247229.netlify.app/" target="_blank" rel="noopener"
-          style="display:flex; align-items:center; gap:1.2rem; text-decoration:none; color:var(--ink); padding:1.2rem 1.5rem; border:1px solid var(--border); transition:all 0.2s;"
-          onmouseover="this.style.borderColor='var(--terracotta)'; this.style.color='var(--terracotta)'"
-          onmouseout="this.style.borderColor='var(--border)'; this.style.color='var(--ink)'">
-          <div style="width:36px; height:36px; border-radius:50%; background:var(--terracotta); color:white; display:flex; align-items:center; justify-content:center; font-size:0.85rem; flex-shrink:0;">↗</div>
-          <div>
-            <div style="font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-light); margin-bottom:0.2rem;">Live app</div>
-            <div style="font-size:0.9rem;">Try the Campaign Brief Builder</div>
-          </div>
-        </a>
-        <a href="brief-builder.html"
-          style="display:flex; align-items:center; gap:1.2rem; text-decoration:none; color:var(--ink); padding:1.2rem 1.5rem; border:1px solid var(--border); transition:all 0.2s;"
-          onmouseover="this.style.borderColor='var(--terracotta)'; this.style.color='var(--terracotta)'"
-          onmouseout="this.style.borderColor='var(--border)'; this.style.color='var(--ink)'">
-          <div style="width:36px; height:36px; border-radius:50%; background:var(--ink); color:white; display:flex; align-items:center; justify-content:center; font-size:0.85rem; flex-shrink:0;">→</div>
-          <div>
-            <div style="font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-light); margin-bottom:0.2rem;">Case study</div>
-            <div style="font-size:0.9rem;">How I built it — every mistake included</div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
 </section>
 
 <!-- BRANDS -->
@@ -749,23 +684,22 @@
   <div class="contact-left fade-in">
     <div class="section-label">Contact</div>
     <h2 class="section-title">Let's work together.</h2>
-    <p>Open to Marketing Specialist, Trade Marketing, and Product Marketing roles across international markets.</p>
+    <p>Open to trade marketing, brand activation, and marketing operations roles across international markets.</p>
     <div class="contact-links">
-      <a href="/cdn-cgi/l/email-protection#731a11011c1b1a1e1c0512001b12011a151233141e121a1f5d101c1e" class="contact-link">
+      <a href="mailto:ibrohimovasharifa@gmail.com" class="contact-link">
         <div class="contact-link-icon">@</div>
         <div class="contact-link-text">
           <div class="contact-link-label">Email</div>
-          <div class="contact-link-value"><span class="__cf_email__" data-cfemail="117873637e79787c7e67706279706378777051767c70787d3f727e7c">[email&#160;protected]</span></div>
+          <div class="contact-link-value">ibrohimovasharifa@gmail.com</div>
         </div>
       </a>
-      <a href="https://linkedin.com/in/sharifakhon-ibrohimova" class="contact-link" target="_blank">
+      <a href="https://linkedin.com/in/sharifakhon-ibrohimova" class="contact-link" target="_blank" rel="noopener">
         <div class="contact-link-icon">in</div>
         <div class="contact-link-text">
           <div class="contact-link-label">LinkedIn</div>
           <div class="contact-link-value">Sharifakhon Ibrohimova</div>
         </div>
       </a>
-
     </div>
   </div>
 
@@ -806,7 +740,7 @@
   © 2026 Sharifakhon Ibrohimova — Marketing Specialist
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 Chart.defaults.font.family = "'DM Sans', sans-serif";
 Chart.defaults.color = '#4A4A4A';
 const terracotta = '#C4614A';
@@ -814,7 +748,6 @@ const border = '#E0DAD0';
 const gold = '#B8976A';
 const green = '#8B9E8A';
 
-// FIFA participation chart
 new Chart(document.getElementById('fifaChart'), {
   type: 'bar',
   data: {
@@ -831,7 +764,6 @@ new Chart(document.getElementById('fifaChart'), {
   }
 });
 
-// Programme scale chart (replaces budget chart)
 new Chart(document.getElementById('programmeChart'), {
   type: 'bar',
   data: {
@@ -848,7 +780,6 @@ new Chart(document.getElementById('programmeChart'), {
   }
 });
 
-// Segment coverage chart (replaces automation chart)
 new Chart(document.getElementById('segmentChart'), {
   type: 'doughnut',
   data: {
@@ -862,7 +793,6 @@ new Chart(document.getElementById('segmentChart'), {
   }
 });
 
-// GreenEco budget chart
 new Chart(document.getElementById('greenEcoChart'), {
   type: 'doughnut',
   data: {
@@ -876,7 +806,6 @@ new Chart(document.getElementById('greenEcoChart'), {
   }
 });
 
-// Intersection observer
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
