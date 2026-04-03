@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campaign Brief Builder — Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Epilogue:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0F0F0D;
+      --surface: #181815;
+      --border: #2A2A25;
+      --ink: #F0EDE6;
+      --ink-2: #A8A49C;
+      --ink-3: #5A5750;
+      --accent: #C8A96E;
+      --accent-dim: #3D3020;
+      --green: #4A7C5A;
+      --green-dim: #1A2E20;
+      --red: #8B3A3A;
+      --red-dim: #2E1515;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Epilogue', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15,15,13,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-name {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
+      font-size: 0.82rem;
+      color: var(--ink-2);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* HERO */
+    .hero {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 6rem 2rem 4rem;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--ink-2);
+    }
+
+    .tag-accent {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+      color: var(--ink);
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--ink-2);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #0F0F0D;
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 0.75rem 1.6rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .hero-cta:hover { opacity: 0.88; }
+
+    .hero-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ink-2);
+      font-size: 0.88rem;
+      padding: 0.75rem 1.2rem;
+      text-decoration: none;
+      margin-left: 0.5rem;
+      transition: color 0.15s;
+    }
+
+    .hero-ghost:hover { color: var(--ink); }
+
+    /* DIVIDER */
+    .divider {
+      max-width: 900px;
+      margin: 0 auto;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* SECTIONS */
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+    }
+
+    p { color: var(--ink-2); margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* STAT GRID */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 2.5rem;
+    }
+
+    .stat {
+      background: var(--surface);
+      padding: 1.5rem;
+    }
+
+    .stat-value {
+      font-family: var(--serif);
+      font-size: 2rem;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--ink-3);
+      letter-spacing: 0.04em;
+    }
+
+    /* PROBLEM/SOLUTION */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 2rem;
+    }
+
+    .col-card {
+      background: var(--surface);
+      padding: 1.75rem;
+    }
+
+    .col-card h3 {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink-2);
+      margin-bottom: 0.8rem;
+    }
+
+    .col-card p { font-size: 0.92rem; }
+
+    /* TECH STACK */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 2rem;
+    }
+
+    .stack-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      transition: border-color 0.15s;
+    }
+
+    .stack-card:hover { border-color: var(--accent); }
+
+    .stack-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .stack-name {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .stack-role {
+      font-size: 0.78rem;
+      color: var(--ink-3);
+    }
+
+    /* JOURNEY TIMELINE */
+    .timeline { margin-top: 2.5rem; }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 1rem;
+      margin-bottom: 0;
+      position: relative;
+    }
+
+    .timeline-item:not(:last-child) .tl-line {
+      position: absolute;
+      left: 13px;
+      top: 28px;
+      bottom: -1px;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .tl-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 500;
+      flex-shrink: 0;
+      margin-top: 2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .dot-error { background: var(--red-dim); color: #E07070; border: 1px solid var(--red); }
+    .dot-fix   { background: var(--green-dim); color: #7FBA8F; border: 1px solid var(--green); }
+    .dot-win   { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent); }
+
+    .tl-body {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 12px;
+    }
+
+    .tl-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .tl-badge {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    .badge-error { background: var(--red-dim); color: #E07070; }
+    .badge-fix   { background: var(--green-dim); color: #7FBA8F; }
+    .badge-win   { background: var(--accent-dim); color: var(--accent); }
+
+    .tl-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .tl-text {
+      font-size: 0.85rem;
+      color: var(--ink-2);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .tl-code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      color: var(--accent);
+      margin-top: 8px;
+      display: block;
+      overflow-x: auto;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 2rem;
+    }
+
+    .skill-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .skill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    .skill-text {
+      font-size: 0.85rem;
+      color: var(--ink-2);
+      line-height: 1.5;
+    }
+
+    .skill-text strong {
+      display: block;
+      color: var(--ink);
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    /* REFLECTION */
+    .quote-block {
+      border-left: 3px solid var(--accent);
+      padding: 1.25rem 1.5rem;
+      background: var(--accent-dim);
+      border-radius: 0 10px 10px 0;
+      margin-top: 2rem;
+    }
+
+    .quote-block p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--ink);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--ink-3);
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .two-col, .skills-grid { grid-template-columns: 1fr; }
+      nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-name">Sharifa Ibrohimova</a>
+  <div class="nav-links">
+    <a href="#problem">Problem</a>
+    <a href="#journey">Journey</a>
+    <a href="#skills">Skills</a>
+    <a href="#" style="color:var(--accent)">← Portfolio</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-meta">
+    <span class="tag tag-accent">Passion project</span>
+    <span class="tag">AI tool</span>
+    <span class="tag">No-code build</span>
+    <span class="tag">April 2026</span>
+  </div>
+  <h1>Building a <em>Campaign Brief Builder</em> from scratch — with no coding experience</h1>
+  <p class="hero-sub">How I went from a marketing idea to a live, AI-powered web app in one day — including every mistake, error, and fix along the way.</p>
+  <a href="#" class="hero-cta">View live app ↗</a>
+  <a href="https://github.com/ibrohimovasharifa-hash" class="hero-ghost" target="_blank">GitHub repo →</a>
+</div>
+
+<hr class="divider" />
+
+<!-- OVERVIEW -->
+<section>
+  <div class="section-label">Overview</div>
+  <h2>What I built and why</h2>
+  <p>As a recent marketing graduate, I noticed that writing campaign briefs takes marketers and business owners hours of work — even though the structure is largely the same every time. I wanted to build a tool that could generate a complete, professional campaign brief in seconds, based on a few guided inputs.</p>
+  <p>The twist: I had zero coding experience going in. This project was as much about learning how modern AI tools enable non-developers to build real software as it was about the marketing problem itself.</p>
+
+  <div class="stat-grid">
+    <div class="stat">
+      <div class="stat-value">1</div>
+      <div class="stat-label">Day to build & deploy</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">0</div>
+      <div class="stat-label">Lines of code written manually</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">3</div>
+      <div class="stat-label">Files in the entire app</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">€0</div>
+      <div class="stat-label">Monthly running cost</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="section-label">Problem & solution</div>
+  <h2>The brief process is broken for small teams</h2>
+
+  <div class="two-col">
+    <div class="col-card">
+      <h3>The problem</h3>
+      <p>Writing a campaign brief manually takes 2–4 hours. Most templates are either too generic to be useful or too complex for small business owners without marketing training. The result: campaigns start without alignment, goals are vague, and budgets get wasted.</p>
+    </div>
+    <div class="col-card">
+      <h3>The solution</h3>
+      <p>A guided 4-step form that takes 3 minutes to fill in. An AI then generates a complete, structured brief — objective, key message, channel strategy, KPIs, budget split, and timeline — instantly. No marketing degree required.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- TECH -->
+<section>
+  <div class="section-label">Tech stack</div>
+  <h2>Built entirely without writing code from scratch</h2>
+  <p>Every file was generated with AI assistance. My job was to understand the architecture, make decisions, and debug when things went wrong.</p>
+
+  <div class="stack-grid">
+    <div class="stack-card">
+      <span class="stack-icon">⬡</span>
+      <div class="stack-name">Claude AI</div>
+      <div class="stack-role">Wrote all three files via conversation</div>
+    </div>
+    <div class="stack-card">
+      <span class="stack-icon">◈</span>
+      <div class="stack-name">Netlify</div>
+      <div class="stack-role">Free hosting + serverless functions</div>
+    </div>
+    <div class="stack-card">
+      <span class="stack-icon">◎</span>
+      <div class="stack-name">GitHub</div>
+      <div class="stack-role">Version control + file storage</div>
+    </div>
+    <div class="stack-card">
+      <span class="stack-icon">✦</span>
+      <div class="stack-name">Gemini 2.5 Flash API</div>
+      <div class="stack-role">AI brief generation (free tier)</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="section-label">The real build process</div>
+  <h2>Every mistake, and what I learned from it</h2>
+  <p>This is the part most portfolios leave out. Here's exactly what went wrong during the build — and how I worked through each problem.</p>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="tl-dot dot-error">✕<div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-header">
+          <span class="tl-badge badge-error">Mistake 1</span>
+          <span class="tl-title">Uploaded zip files to GitHub instead of extracted files</span>
+        </div>
+        <p class="tl-text">GitHub needs actual files — not a compressed archive. I uploaded the zip without extracting it first, so the repo contained <code>.zip</code> files instead of <code>index.html</code> and the function folder.</p>
+        <span class="tl-code">❌ campaign-brief-builder.zip uploaded directly to repo</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot dot-fix">✓<div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-header">
+          <span class="tl-badge badge-fix">Fix 1</span>
+          <span class="tl-title">Extracted the zip and uploaded the folder structure correctly</span>
+        </div>
+        <p class="tl-text">Deleted the zip files, extracted locally, then dragged the folder into GitHub's upload interface. Learned: GitHub reads files, not archives.</p>
+        <span class="tl-code">✓ index.html / netlify.toml / netlify/functions/generate-brief.js</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot dot-error">✕<div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-header">
+          <span class="tl-badge badge-error">Mistake 2</span>
+          <span class="tl-title">Pasted the API key as the variable name, not the value</span>
+        </div>
+        <p class="tl-text">In Netlify's environment variables panel, I put the actual API key string (<code>AIzaSy...</code>) in the Key name field instead of the Value field. The variable had no actual value set.</p>
+        <span class="tl-code">Key: AIzaSyB_iJuKK... | Value: (empty)</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot dot-error">✕<div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-header">
+          <span class="tl-badge badge-error">Mistake 3</span>
+          <span class="tl-title">Typo in the environment variable name</span>
+        </div>
+        <p class="tl-text">After fixing the value, the variable name was still wrong — I typed <code>GEMENI_API</code> instead of <code>GEMINI_API_KEY</code>. The code was looking for an exact name that didn't exist, so the key was invisible to the function.</p>
+        <span class="tl-code">❌ GEMENI_API → ✓ GEMINI_API_KEY</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot dot-error">✕<div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-header">
+          <span class="tl-badge badge-error">Mistake 4</span>
+          <span class="tl-title">The AI model had been deprecated by Google</span>
+        </div>
+        <p class="tl-text">The original code used <code>gemini-1.5-flash</code>, but Google's API had changed its model names. Then I switched to <code>gemini-2.0-flash</code> — which turned out to have been officially retired in March 2026 with a free tier limit of zero requests.</p>
+        <span class="tl-code">Error 404: models/gemini-1.5-flash is not found for API version v1beta</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot dot-error">✕<div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-header">
+          <span class="tl-badge badge-error">Mistake 5</span>
+          <span class="tl-title">JSON parsing failed on the AI's response</span>
+        </div>
+        <p class="tl-text">Once the correct model (<code>gemini-2.5-flash</code>) was working, the response came back but the code couldn't parse it. The newer model wraps its output differently, causing an "Unterminated string" error on line 65.</p>
+        <span class="tl-code">SyntaxError: Unterminated string in JSON at position 601</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot dot-win">★</div>
+      <div class="tl-body">
+        <div class="tl-header">
+          <span class="tl-badge badge-win">Final fix</span>
+          <span class="tl-title">Robust JSON extraction + correct model = working app</span>
+        </div>
+        <p class="tl-text">Added <code>responseMimeType: "application/json"</code> to force clean output, and rewrote the parser to find the JSON boundaries rather than assuming perfect formatting. First successful brief generated.</p>
+        <span class="tl-code">✓ gemini-2.5-flash / v1beta / responseMimeType: application/json</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">What this demonstrates</div>
+  <h2>Skills shown through building this</h2>
+
+  <div class="skills-grid">
+    <div class="skill-item">
+      <div class="skill-dot"></div>
+      <div class="skill-text">
+        <strong>Problem identification</strong>
+        Spotted a real workflow gap for marketers and framed it as a buildable product
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-dot"></div>
+      <div class="skill-text">
+        <strong>AI tool fluency</strong>
+        Used Claude to architect, write, and debug a full-stack app through conversation
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-dot"></div>
+      <div class="skill-text">
+        <strong>Reading error logs</strong>
+        Learned to interpret Netlify function logs to diagnose API and parsing errors
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-dot"></div>
+      <div class="skill-text">
+        <strong>API security basics</strong>
+        Understood why API keys must never be exposed in public code and used environment variables
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-dot"></div>
+      <div class="skill-text">
+        <strong>Deployment workflow</strong>
+        Connected GitHub → Netlify with continuous deployment and serverless functions
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-dot"></div>
+      <div class="skill-text">
+        <strong>Persistence under ambiguity</strong>
+        Worked through 5 different errors without prior experience to ship a working product
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>"The mistakes aren't the embarrassing part — they're the proof that I actually built this. Anyone can copy a tutorial. Debugging a deprecated API model at 1pm on a Wednesday is how you actually learn."</p>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- NEXT -->
+<section>
+  <div class="section-label">What's next</div>
+  <h2>Where this could go</h2>
+  <p>This is a foundation. With more time, I'd love to add PDF export so users can download and share briefs directly, saved brief history so teams can revisit past campaigns, and a brand voice input so the generated copy matches each client's tone. I'd also explore whether this could work as a white-label tool for marketing agencies.</p>
+</section>
+
+<footer>
+  Built by <a href="#">Sharifa Ibrohimova</a> · Marketing graduate · Amsterdam &nbsp;·&nbsp;
+  <a href="#">LinkedIn</a> &nbsp;·&nbsp;
+  <a href="https://github.com/ibrohimovasharifa-hash" target="_blank">GitHub</a>
+</footer>
+
+</body>
+</html>
