@@ -6,8 +6,8 @@ Live: https://ibrohimovasharifa-hash.github.io/
 
 ## How it's built
 
-- Hand-written HTML, CSS and vanilla JavaScript. No framework, no static site generator, no template, no build step.
-- Hosted on GitHub Pages. Jekyll processing is disabled with `.nojekyll`, so files are served exactly as committed.
+- HTML, CSS and vanilla JavaScript. No framework, no static site generator, no template, no build step. Code written with AI assistance; structure, tracking, CRM integration and testing specified, configured and verified by me.
+-  Hosted on GitHub Pages. Jekyll processing is disabled with `.nojekyll`, so files are served exactly as committed.
 - Mobile-first layout, tested down to 375px width.
 
 ## Status
